@@ -88,6 +88,7 @@ table(cl$cluster)
 # Export to excel
 
 # write.table(file="clipboard", as.data.frame(sapply(z, names)), sep="\t", row.names= FALSE)
+write.table(file="clipboard", data.frame(package = head(rownames(pr), 10), pagerank = head(pr, 10)), sep="\t", row.names= FALSE)
 
 
 
