@@ -14,6 +14,8 @@ degree.distributiond.df <- function(g){
 }
 
 
+# CRAN --------------------------------------------------------------------
+
 dat <- degree.distributiond.df(gcran)
 dat <- dat[dat$frequency > 0, ]
 
@@ -24,9 +26,25 @@ ggplot(dat[-1, ], aes(x = degree, y = frequency)) +
   geom_point() + 
   geom_smooth(method = loess) +
   geom_line(data = pwr.dat, aes(x=degree, y=frequency), col = "red") +
-  # stat_function(fun = pwr) +
   scale_x_log10() +
-  scale_y_log10(limits = c(1e-4, 1))
-# coord_trans(y = "log10", x = "log10")
+  scale_y_log10(limits = c(1e-4, 1)) +
+  ggtitle("CRAN")
 
+
+# BIOC --------------------------------------------------------------------
+
+dat <- degree.distributiond.df(gbioc)
+dat <- dat[dat$frequency > 0, ]
+
+
+pwr <- function(x){ifelse(x==0, 0, 10 * + x^-2.590297)}
+pwr.dat <- data.frame(degree = 9:100, frequency = pwr(9:100))
+library(ggplot2)
+ggplot(dat[-1, ], aes(x = degree, y = frequency)) + 
+  geom_point() + 
+  geom_smooth(method = loess) +
+  geom_line(data = pwr.dat, aes(x=degree, y=frequency), col = "red") +
+  scale_x_log10() +
+  scale_y_log10(limits = c(1e-4, 1)) +
+  ggtitle("BIOC")
 
