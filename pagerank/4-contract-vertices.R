@@ -41,26 +41,26 @@ plot.igraph(gcc, edge.arrow.size = 0.1, layout = g.layout, vertex.size = 0.5 * (
 #  ------------------------------------------------------------------------
 
 
-# # Extract into data frame and plot
-#
-# library(networkD3)
-# library(visNetwork)
-# library(magrittr)
-# 
-# V(gcc)$size <- degree(gcc)
-# 
-# gd <- get.data.frame(gcc, what = "both" )
-# nodes <- with(gd[["vertices"]],
-#               data.frame(
-#                 id =  name,
-#                 size =  size
-#               ))
-# 
-# visNetwork(
-#   nodes = nodes, 
-#   edges = gd[["edges"]],
-#   height = 500,
-#   width = 500
-# ) %>% 
-#   visPhysics(timestep = 0.03) %>% 
-#   visOptions(highlightNearest = TRUE)
+# Extract into data frame and plot
+
+library(networkD3)
+library(visNetwork)
+library(magrittr)
+
+V(gcc)$size <- degree(gcc)
+
+gd <- get.data.frame(gcc, what = "both" )
+nodes <- with(gd[["vertices"]],
+              data.frame(
+                id =  name,
+                size =  size
+              ))
+
+visNetwork(
+  nodes = nodes, 
+  edges = gd[["edges"]],
+  height = 500,
+  width = "100%"
+) %>% 
+  visPhysics(timestep = 0.03) %>% 
+  visOptions(highlightNearest = TRUE)

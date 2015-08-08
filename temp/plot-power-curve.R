@@ -22,9 +22,9 @@ dat <- dat[dat$frequency > 0, ]
 pwr <- function(x){ifelse(x==0, 0, 3 * + x^-2.5475)}
 pwr.dat <- data.frame(degree = 5:100, frequency = pwr(5:100))
 library(ggplot2)
-ggplot(dat[-1, ], aes(x = degree, y = frequency)) + 
+ggplot(dat, aes(x = degree, y = frequency)) + 
   geom_point() + 
-  geom_smooth(method = loess) +
+  geom_smooth(data = dat[-1, ], method = loess) +
   geom_line(data = pwr.dat, aes(x=degree, y=frequency), col = "red") +
   scale_x_log10() +
   scale_y_log10(limits = c(1e-4, 1)) +
@@ -36,15 +36,14 @@ ggplot(dat[-1, ], aes(x = degree, y = frequency)) +
 dat <- degree.distributiond.df(gbioc)
 dat <- dat[dat$frequency > 0, ]
 
-
-pwr <- function(x){ifelse(x==0, 0, 10 * + x^-2.590297)}
-pwr.dat <- data.frame(degree = 9:100, frequency = pwr(9:100))
+pwr <- function(x){ifelse(x==0, 0, 11 * + x^-2.590297)}
+pwr.dat <- data.frame(degree = 9:60, frequency = pwr(9:60))
 library(ggplot2)
-ggplot(dat[-1, ], aes(x = degree, y = frequency)) + 
+ggplot(dat, aes(x = degree, y = frequency)) + 
   geom_point() + 
-  geom_smooth(method = loess) +
+  stat_smooth(data = dat[-1, ], method = loess) +
   geom_line(data = pwr.dat, aes(x=degree, y=frequency), col = "red") +
   scale_x_log10() +
   scale_y_log10(limits = c(1e-4, 1)) +
-  ggtitle("BIOC")
+  ggtitle("BioConductor")
 
